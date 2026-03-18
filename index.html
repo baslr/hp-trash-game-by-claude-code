@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harry Potter – Chapter 1: The Boy Who Lived</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <h1 class="loading-title">Harry Potter</h1>
+      <h2 class="loading-subtitle">and the Philosopher's Stone</h2>
+      <div class="loading-chapter">Chapter 1 – The Boy Who Lived</div>
+      <div class="loading-bar-container">
+        <div class="loading-bar" id="loading-bar"></div>
+      </div>
+      <div class="loading-text" id="loading-text">Loading magical world...</div>
+    </div>
+  </div>
+
+  <!-- Title Screen -->
+  <div id="title-screen" class="hidden">
+    <div class="title-content">
+      <h1 class="title-main">The Boy Who Lived</h1>
+      <p class="title-instruction">Click anywhere to begin</p>
+    </div>
+  </div>
+
+  <!-- Game UI Overlay -->
+  <div id="game-ui" class="hidden">
+    <!-- Narrator text box -->
+    <div id="dialogue-box" class="hidden">
+      <div id="dialogue-speaker"></div>
+      <div id="dialogue-text"></div>
+      <div id="dialogue-continue" class="hidden">▼</div>
+    </div>
+
+    <!-- Interaction prompt -->
+    <div id="interaction-prompt" class="hidden">
+      <span id="prompt-text">Click to interact</span>
+    </div>
+
+    <!-- Scene title -->
+    <div id="scene-title" class="hidden">
+      <div id="scene-title-text"></div>
+    </div>
+
+    <!-- Controls hint -->
+    <div id="controls-hint">
+      <span>Mouse: Look around</span>
+      <span>Space/Click: Advance text</span>
+    </div>
+  </div>
+
+  <!-- Cursor glow (2D overlay) -->
+  <div id="cursor-glow"></div>
+
+  <!-- Three.js Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

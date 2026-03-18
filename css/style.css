@@ -1,0 +1,362 @@
+/* ===== LOCAL FONTS ===== */
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/assets/fonts/cinzel.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/crimson-text-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/fonts/crimson-text-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/crimson-text-400-italic.woff2') format('woff2');
+}
+
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: #000;
+  font-family: 'Crimson Text', Georgia, serif;
+  color: #f0e6d3;
+  cursor: none;
+}
+
+/* Custom CSS cursor glow (2D fallback on UI elements) */
+#cursor-glow {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 221, 136, 0.6) 0%, rgba(255, 200, 80, 0.2) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  transition: opacity 0.3s;
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+canvas {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===== LOADING SCREEN ===== */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0510 70%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 1s ease;
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-title {
+  font-family: 'Cinzel', serif;
+  font-size: 4rem;
+  color: #d4a843;
+  text-shadow: 0 0 30px rgba(212, 168, 67, 0.5);
+  margin-bottom: 0.2em;
+  letter-spacing: 0.1em;
+}
+
+.loading-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: #a08040;
+  margin-bottom: 1em;
+  font-weight: 400;
+}
+
+.loading-chapter {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #887755;
+  margin-bottom: 2em;
+}
+
+.loading-bar-container {
+  width: 300px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 0 auto 1em;
+  overflow: hidden;
+}
+
+.loading-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #d4a843, #f0d080);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  color: #665544;
+  font-style: italic;
+}
+
+/* ===== TITLE SCREEN ===== */
+#title-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+#title-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.title-main {
+  font-family: 'Cinzel', serif;
+  font-size: 3.5rem;
+  color: #d4a843;
+  text-shadow: 0 0 40px rgba(212, 168, 67, 0.4);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.title-instruction {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #998866;
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== GAME UI ===== */
+#game-ui {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ===== DIALOGUE BOX ===== */
+#dialogue-box {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(800px, 90vw);
+  background: linear-gradient(180deg, rgba(15, 10, 5, 0.92) 0%, rgba(10, 5, 2, 0.96) 100%);
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  border-radius: 8px;
+  padding: 24px 32px;
+  pointer-events: auto;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 168, 67, 0.1);
+  animation: dialogueAppear 0.4s ease-out;
+}
+
+@keyframes dialogueAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+#dialogue-speaker {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: #d4a843;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+#dialogue-speaker:empty {
+  display: none;
+}
+
+#dialogue-text {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #e8dcc8;
+  min-height: 2em;
+}
+
+#dialogue-text .dialogue-spoken {
+  color: #f0e0c0;
+  font-style: italic;
+}
+
+#dialogue-continue {
+  text-align: center;
+  color: #d4a843;
+  font-size: 0.8rem;
+  margin-top: 12px;
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ===== INTERACTION PROMPT ===== */
+#interaction-prompt {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(15, 10, 5, 0.8);
+  border: 1px solid rgba(212, 168, 67, 0.4);
+  border-radius: 20px;
+  padding: 8px 20px;
+  pointer-events: none;
+  animation: promptPulse 2s ease-in-out infinite;
+}
+
+@keyframes promptPulse {
+  0%, 100% { border-color: rgba(212, 168, 67, 0.2); }
+  50% { border-color: rgba(212, 168, 67, 0.6); }
+}
+
+#prompt-text {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.95rem;
+  color: #d4a843;
+}
+
+/* ===== SCENE TITLE ===== */
+#scene-title {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  animation: sceneTitleAnim 4s ease-in-out forwards;
+}
+
+@keyframes sceneTitleAnim {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+#scene-title-text {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  color: #d4a843;
+  text-shadow: 0 0 30px rgba(212, 168, 67, 0.5);
+  letter-spacing: 0.1em;
+}
+
+/* ===== CONTROLS HINT ===== */
+#controls-hint {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  display: flex;
+  gap: 15px;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+#controls-hint span {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.75rem;
+  color: #998866;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .loading-title {
+    font-size: 2.5rem;
+  }
+
+  .title-main {
+    font-size: 2rem;
+  }
+
+  #dialogue-box {
+    bottom: 20px;
+    padding: 16px 20px;
+  }
+
+  #dialogue-text {
+    font-size: 1rem;
+  }
+}
